@@ -43,7 +43,7 @@ export const CreateNewAccount = () => {
             }catch(err){
                 console.log();
             }
-            history.push("/login")
+            history.push("/")
         }else{
             setError("passwords do not match")
         }
@@ -75,7 +75,7 @@ export const CreateNewAccount = () => {
             type="password" />
             <ErrorP>{error}</ErrorP>
             <CreateBtn onClick={onCreate} >Create</CreateBtn>
-            <Link to="/">
+            <Link to="/login">
                 <BackBtn> <BsArrowLeft /> </BackBtn>
             </Link>
         </LoginWrapper>

@@ -83,7 +83,7 @@ export const Login = () => {
         try{
             const res = await api.post("/auth/local", { identifier: loginText, password: passwordText });
             setToken(res.data.jwt)
-            history.push("/home");
+            history.push("/");
         }catch(err){
             setError("Wrong login or password");
         }

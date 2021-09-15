@@ -36,11 +36,6 @@ const AddBtnWrapper = styled.button`
     }
 `;
 
-const NoResults = styled.p`
-    color: ${Colors.white};
-    font-size: 24px;
-`;
-
 export const AllTodoLists = () => {
     const [isNewTodoList, setIsNewTodoList] = useState(false);
     const [clickedList, setClickedList] = useState();

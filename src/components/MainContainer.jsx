@@ -43,10 +43,10 @@ export const MainContainer = ({ children }) => {
     return(
         <Wrapper>
             <H1>ToDo-List</H1>
-            {token && 
-            <LogoutBtn onClick={logout}>
-                <Logout />
-            </LogoutBtn>}
+                {token && 
+                <LogoutBtn onClick={logout}>
+                    <Logout />
+                </LogoutBtn>}
             {children}
         </Wrapper>
     )

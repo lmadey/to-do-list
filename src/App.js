@@ -1,28 +1,35 @@
 import "./App.css";
+import React, { useContext } from "react";
 import { MainContainer } from "./components/MainContainer"
 import { Login } from "./components/Login";
 import { CreateNewAccount } from "./components/CreateNewAccount";
 import { AllTodoLists } from "./components/AllTodoLists";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { TokenProvider } from "./contexts/TokenContext";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { TokenProvider, TokenContext } from "./contexts/TokenContext";
 
 function App() {
+
+  const [token] = useContext(TokenContext)
+
   return (
-    <TokenProvider>
       <Router>
-        <MainContainer>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/create-new-account">
-            <CreateNewAccount />
-          </Route>
-          <Route path="/home">
-            <AllTodoLists />
-          </Route>
-        </MainContainer>
+        <Switch>
+          <MainContainer>
+            {<Route path="/create-new-account">
+              <CreateNewAccount />
+            </Route>}
+            <Route path="/login">
+              <Login />
+            </Route>
+
+            {token ? <Route exact path="/">
+              <AllTodoLists />
+            </Route> :
+            <Redirect to="/login" />}
+
+          </MainContainer>
+        </Switch>
       </Router>
-    </TokenProvider>
   );
 }
 
