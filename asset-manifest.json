@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/to-do-list/static/css/main.f1ec5297.chunk.css",
+    "main.js": "/to-do-list/static/js/main.98a91d65.chunk.js",
+    "main.js.map": "/to-do-list/static/js/main.98a91d65.chunk.js.map",
+    "runtime-main.js": "/to-do-list/static/js/runtime-main.73d3b8a5.js",
+    "runtime-main.js.map": "/to-do-list/static/js/runtime-main.73d3b8a5.js.map",
+    "static/js/2.b0157544.chunk.js": "/to-do-list/static/js/2.b0157544.chunk.js",
+    "static/js/2.b0157544.chunk.js.map": "/to-do-list/static/js/2.b0157544.chunk.js.map",
+    "static/js/3.83e9f2fc.chunk.js": "/to-do-list/static/js/3.83e9f2fc.chunk.js",
+    "static/js/3.83e9f2fc.chunk.js.map": "/to-do-list/static/js/3.83e9f2fc.chunk.js.map",
+    "index.html": "/to-do-list/index.html",
+    "static/css/main.f1ec5297.chunk.css.map": "/to-do-list/static/css/main.f1ec5297.chunk.css.map",
+    "static/js/2.b0157544.chunk.js.LICENSE.txt": "/to-do-list/static/js/2.b0157544.chunk.js.LICENSE.txt",
+    "static/media/Add-btn.b96f4f52.svg": "/to-do-list/static/media/Add-btn.b96f4f52.svg",
+    "static/media/arrow-up.454778a4.svg": "/to-do-list/static/media/arrow-up.454778a4.svg",
+    "static/media/check.73d62c98.svg": "/to-do-list/static/media/check.73d62c98.svg",
+    "static/media/logout 2.f9d4c4e5.svg": "/to-do-list/static/media/logout 2.f9d4c4e5.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73d3b8a5.js",
+    "static/js/2.b0157544.chunk.js",
+    "static/css/main.f1ec5297.chunk.css",
+    "static/js/main.98a91d65.chunk.js"
+  ]
+}
