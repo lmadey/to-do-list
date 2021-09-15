@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { MainContainer } from "./components/MainContainer"
+import { Login } from "./components/Login";
+import { CreateNewAccount } from "./components/CreateNewAccount";
+import { AllTodoLists } from "./components/AllTodoLists";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { TodoListsProvider } from "./contexts/TodoListsContext";
+import { TokenProvider } from "./contexts/TokenContext";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TokenProvider>
+      <Router>
+        <MainContainer>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/create-new-account">
+            <CreateNewAccount />
+          </Route>
+          <Route path="/home">
+            <TodoListsProvider>
+              <AllTodoLists />
+            </TodoListsProvider>
+          </Route>
+        </MainContainer>
+      </Router>
+    </TokenProvider>
   );
 }
 
