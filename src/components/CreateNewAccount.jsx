@@ -75,7 +75,7 @@ export const CreateNewAccount = () => {
             type="password" />
             <ErrorP>{error}</ErrorP>
             <CreateBtn onClick={onCreate} >Create</CreateBtn>
-            <Link to="login">
+            <Link to="/">
                 <BackBtn> <BsArrowLeft /> </BackBtn>
             </Link>
         </LoginWrapper>

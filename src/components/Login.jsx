@@ -1,9 +1,8 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
 import { Colors } from "../Colors";
 import { TokenContext } from "../contexts/TokenContext";
-import { Link } from "react-router-dom";
 import api from "../api/todoLists";
 
 export const LoginWrapper = styled.div`
@@ -78,7 +77,7 @@ export const Login = () => {
     const [loginText, setLoginText] = useState("");
     const [passwordText, setPasswordText] = useState("");
     const [error, setError] = useState("")
-    const history = useHistory();
+    const history = useHistory()
 
     const onLogin = async () => {
         try{
