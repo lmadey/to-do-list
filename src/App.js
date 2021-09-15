@@ -4,7 +4,6 @@ import { Login } from "./components/Login";
 import { CreateNewAccount } from "./components/CreateNewAccount";
 import { AllTodoLists } from "./components/AllTodoLists";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { TodoListsProvider } from "./contexts/TodoListsContext";
 import { TokenProvider } from "./contexts/TokenContext";
 
 function App() {
@@ -19,9 +18,7 @@ function App() {
             <CreateNewAccount />
           </Route>
           <Route path="/home">
-            <TodoListsProvider>
-              <AllTodoLists />
-            </TodoListsProvider>
+            <AllTodoLists />
           </Route>
         </MainContainer>
       </Router>

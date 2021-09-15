@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { LoginWrapper, LoginInput, LoginBtn, LoginH3 } from "./Login";
+import { LoginWrapper, LoginInput, LoginBtn, LoginH3, ErrorP } from "./Login";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import { Colors } from "../Colors";
-import api from "../api/todoLists"
+import { useHistory, Link } from "react-router-dom";
+import api from "../api/todoLists";
 
 
 const H3 = styled(LoginH3)`
@@ -33,14 +33,21 @@ export const CreateNewAccount = () => {
     const [emailText, setEmailText] = useState("");
     const [passwordText, setPasswordText] = useState("");
     const [repeatPasswordText, setRepeatPasswordlText] = useState("");
+    const [error, setError] = useState("")
+    const history = useHistory();
     
     const onCreate = async () => {
-        try{
-            const res = await api.post("/auth-local-register", { username: usernameText, email: emailText, password: passwordText})
-            console.log(res.data);
-        }catch(err){
-            console.log(err.message);
+        if(repeatPasswordText === passwordText){
+            try{
+                const res = await api.post("/auth/local/register", { username: usernameText, email: emailText, password: passwordText})
+            }catch(err){
+                console.log();
+            }
+            history.push("/login")
+        }else{
+            setError("passwords do not match")
         }
+        
     } 
 
     return(
@@ -55,7 +62,7 @@ export const CreateNewAccount = () => {
             value={emailText}
             onChange={(e) => setEmailText(e.target.value)} 
             placeholder="E-mail" 
-            type="text" />
+            type="e-mail" />
             <LoginInput
             value={passwordText}
             onChange={(e) => setPasswordText(e.target.value)} 
@@ -66,9 +73,8 @@ export const CreateNewAccount = () => {
             onChange={(e) => setRepeatPasswordlText(e.target.value)} 
             placeholder="Repeat password" 
             type="password" />
-            <Link to="./login">
-                <CreateBtn onClick={onCreate} >Create</CreateBtn>
-            </Link>
+            <ErrorP>{error}</ErrorP>
+            <CreateBtn onClick={onCreate} >Create</CreateBtn>
             <Link to="login">
                 <BackBtn> <BsArrowLeft /> </BackBtn>
             </Link>

@@ -78,19 +78,19 @@ const CancelBtn = styled.button`
 
 export const NewTodoList = ({ setIsNewTodoList, setClickedList, clickedList }) => {
 
-    const [todoLists, setTodoLists] = useContext(TodoListsContext);
+    const [ , fetchTodoLists] = useContext(TodoListsContext);
     const [token] = useContext(TokenContext);
     const [taskList, setTaskList] = useState([]);
     const [todoListName, setTodoListName] = useState("");
 
     const saveTodoList = async () => {
         try{
-            const res = await api.post("/to-do-lists", {name: todoListName, task: taskList }, {
+            await api.post("/to-do-lists", {name: todoListName, task: taskList }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setTodoLists([...todoLists, res.data])
+            fetchTodoLists();
         }catch(err){
             console.log(err.message);
         }
@@ -103,12 +103,16 @@ export const NewTodoList = ({ setIsNewTodoList, setClickedList, clickedList }) =
     const onChangeHandler = (item) => {
         setTaskList((currentTasks) => {
           return currentTasks.map((task) => {
-              if(task.id === item.id) {
+              if(task === item) {
                   return item;
               }
               return task;
           })
         })
+    }
+
+    const onDeleteHandler = (task) => {
+        setTaskList(taskList.filter(listItem => listItem !== task));
     }
 
     //EDIT LIST FUNCTIONS
@@ -128,12 +132,12 @@ export const NewTodoList = ({ setIsNewTodoList, setClickedList, clickedList }) =
         if(clickedList){
             const updatedTodo = { name: todoListName, task: taskList }
             try{
-                const res = await api.put(`/to-do-lists/${id}`, updatedTodo, {
+                await api.put(`/to-do-lists/${id}`, updatedTodo, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })  
-                setTodoLists(todoLists.map(list => list.id === id ? { ...res.data } : list))
+                fetchTodoLists()
             }catch(err) {
                 console.log(err.message);
             }
@@ -167,14 +171,12 @@ export const NewTodoList = ({ setIsNewTodoList, setClickedList, clickedList }) =
                     <NewTodoInput
                     value={todoListName} 
                     onChange={todoListNameHandler}
-                    clickedList={clickedList}
                     placeholder="List name"/>
                 </InputWrapper>
                 {taskList.map((task, index) => (
                     <TaskItem  
                     task={task}
-                    taskList={taskList}
-                    setTaskList={setTaskList}
+                    onDelete={() => onDeleteHandler(task)}
                     onChange={onChangeHandler}
                     key={index}/>
                 ))}

@@ -1,10 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { SearchAllTodoLists } from "./SearchAllTodoLists";
 import { TodoList } from "./TodoList";
 import { NewTodoList } from "./NewTodoList";
 import { SortSelector } from "./SortSelector"
-import { TodoListsContext } from "../contexts/TodoListsContext"
+import { TodoListsContext } from "../contexts/TodoListsContext";
+import { TodoListsProvider } from "../contexts/TodoListsContext";
 import { ReactComponent as AddBtn } from "../icons/Add-btn.svg";
 import { Colors } from "../Colors"
 
@@ -42,25 +43,28 @@ const NoResults = styled.p`
 
 export const AllTodoLists = () => {
     const [isNewTodoList, setIsNewTodoList] = useState(false);
-    const [todoLists] = useContext(TodoListsContext);
     const [clickedList, setClickedList] = useState();
-    console.log(`clicked list: ${clickedList}`);
+    const [filter, setFilter] = useState("")
     
     return(
-        <>
+        <TodoListsProvider>
             <Wrapper>
                 <SearchSortWrapper>
-                    <SearchAllTodoLists/>
+                    <SearchAllTodoLists onChange={(value) => setFilter(value)}/>
                     <SortSelector />
                 </SearchSortWrapper>
-
-                {todoLists.map((list, index) => (
-                    <TodoList
-                    list={list}
-                    setClickedList={setClickedList}
-                    setIsNewTodoList={setIsNewTodoList}
-                    key={index}/>
-                ))}
+            
+                <TodoListsContext.Consumer>
+                    {([todoLists]) => (
+                        todoLists.filter(item => item.name.includes(filter)).map((list) => (
+                            <TodoList
+                            list={list}
+                            setClickedList={setClickedList}
+                            setIsNewTodoList={setIsNewTodoList}
+                            key={list.id}/>
+                        ))
+                    )}
+                </TodoListsContext.Consumer>
                 
                 <AddBtnWrapper>
                     <AddBtn 
@@ -73,6 +77,6 @@ export const AllTodoLists = () => {
             clickedList={clickedList}
             setClickedList={setClickedList}
             setIsNewTodoList={setIsNewTodoList}/>}
-        </>
+        </TodoListsProvider>
     )
 }

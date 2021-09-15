@@ -55,14 +55,11 @@ const CheckMarkWrapper = styled.div`
     bottom: 1px;
 `;
 
-export const TaskItem = ({ task, onChange, taskList, setTaskList }) => {
+export const TaskItem = ({ task, onChange, onDelete }) => {
 
     const isDoneHandler = () => {
-        onChange({ ...task, isDone: !task.isDone })
-    }
-
-    const onDelete = () => {
-        setTaskList(taskList.filter(listItem => listItem.id !== task.id));
+        task.isDone = !task.isDone
+        onChange(task)
     }
 
     return(

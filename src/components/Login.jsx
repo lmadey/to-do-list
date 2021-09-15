@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Colors } from "../Colors";
 import { TokenContext } from "../contexts/TokenContext";
@@ -66,23 +67,28 @@ const LoginBtnCreateAccount = styled.button`
     }
 `;
 
+export const ErrorP = styled.p`
+    color: ${Colors.cancel};
+    font-size: 24px;
+`;
+
 export const Login = () => {
 
     const [token, setToken] = useContext(TokenContext);
     const [loginText, setLoginText] = useState("");
     const [passwordText, setPasswordText] = useState("");
     const [error, setError] = useState("")
+    const history = useHistory();
 
     const onLogin = async () => {
         try{
             const res = await api.post("/auth/local", { identifier: loginText, password: passwordText });
             setToken(res.data.jwt)
-            console.log(token);
+            history.push("/home");
         }catch(err){
             setError("Wrong login or password");
         }
     }
-    const checkData = token ? "/home" : "/login"
 
     return(
         <LoginWrapper>
@@ -97,10 +103,8 @@ export const Login = () => {
                 onChange={(e) => setPasswordText(e.target.value)}
                 placeholder="Password" 
                 type="password" />
-            <Link to={checkData}>
-                <LoginBtn onClick={onLogin}>Login</LoginBtn>
-            </Link>
-            <p>{error}</p>
+            <ErrorP>{error}</ErrorP>
+            <LoginBtn onClick={onLogin}>Login</LoginBtn>
             <LoginParagraph>or</LoginParagraph>
             <Link to="/create-new-account">
                 <LoginBtnCreateAccount>create an account</LoginBtnCreateAccount>

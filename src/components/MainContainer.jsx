@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Colors } from "../Colors";
 import { TokenContext } from "../contexts/TokenContext"
 import { ReactComponent as Logout} from "../icons/logout 2.svg";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Wrapper = styled.div`
     display: flex;
@@ -33,16 +33,20 @@ const LogoutBtn = styled.button`
 export const MainContainer = ({ children }) => {
 
     const [token, setToken] = useContext(TokenContext);
+    const history = useHistory();
+
+    const logout = () => {
+        history.push("/login");
+        setToken(null)
+    }
 
     return(
         <Wrapper>
             <H1>ToDo-List</H1>
             {token && 
-            <Link to="/login">
-                <LogoutBtn onClick={() => setToken(null)}>
-                    <Logout />
-                </LogoutBtn>
-            </Link>}
+            <LogoutBtn onClick={logout}>
+                <Logout />
+            </LogoutBtn>}
             {children}
         </Wrapper>
     )

@@ -61,7 +61,7 @@ export const TodoList = ({ list, setClickedList, setIsNewTodoList }) => {
 
     const uncompletedTasks = list.task.filter(task => task.isDone === false);
     const completedTask = list.task.filter(task => task.isDone === true);
-    const [todoLists, setTodoLists] = useContext(TodoListsContext);
+    const [todoLists, fetchTodoLists] = useContext(TodoListsContext);
     const [token] = useContext(TokenContext);
     
     const onDelete = async () => {
@@ -71,7 +71,7 @@ export const TodoList = ({ list, setClickedList, setIsNewTodoList }) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setTodoLists(todoLists.filter(todoList => todoList.id !== list.id));
+            fetchTodoLists();
         }catch(err){
             console.log(err.message);
         }

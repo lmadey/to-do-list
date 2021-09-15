@@ -54,7 +54,7 @@ const CheckBoxInput = styled(CheckBox)`
 `;
 
 
-export const NewTaskInput = ({ taskList, setTaskList, clickedList }) => {
+export const NewTaskInput = ({ taskList, setTaskList }) => {
 
     const [taskName, setTaskName] = useState("");
     
@@ -64,19 +64,12 @@ export const NewTaskInput = ({ taskList, setTaskList, clickedList }) => {
     
     const onSave = () => {
         if(taskName){
-            if(clickedList){
-                setTaskList([...taskList, { name: taskName, isDone: false }]);
-            }
-            
-            if(!clickedList){
-                setTaskList([...taskList, { name: taskName, id: Math.random() * 1000, isDone: false }]);
-            }
+            setTaskList([...taskList, { name: taskName, isDone: false }]);
             setTaskName("");
         }else{
             alert("You try to add ampty task.")
         }
     }
-
 
     return(
         <>

@@ -1,43 +1,28 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { LoginInput } from "./Login";
-import { TodoListsContext } from "../contexts/TodoListsContext";
 import { TokenContext } from "../contexts/TokenContext";
-import api from "../api/todoLists";
 
 const SearchInput = styled(LoginInput)`
     width: 482px;
     margin: 0;
 `;
 
-export const SearchAllTodoLists = () => {
+export const SearchAllTodoLists = ({ onChange }) => {
 
-    const [todoLists, setTodoLists] = useContext(TodoListsContext);
-    const [token] = useContext(TokenContext)
     const [inputText, setInputText] = useState("");
 
-    useEffect(() => {
-        const search = async () => {
-            try{
-                const res = await api.get(`/to-do-lists?%3D=${inputText}`, {
-                    headers: {
-                       Authorization: `Bearer ${token}`
-                    }
-                })
-                setTodoLists(res.data);
-            }catch(err){
-                console.log(err);
-            }
-        }
-        console.log(inputText);
-        search()
-    }, [inputText])
+    const inputHandler = (e) => {
+        setInputText(e.target.value)
+        onChange(e.target.value);
+    }
+    
 
     return(
         <>
         <SearchInput
         value={inputText} 
-        onChange={(e) => setInputText(e.target.value)}
+        onChange={inputHandler}
         placeholder="search" 
         type="text" />
         </>
